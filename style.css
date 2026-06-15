@@ -3,6 +3,8 @@
     --card-bg: #181824;
     --primary: #ff2a74;
     --secondary: #00f0ff;
+    --match-orange: #ff6a00; /* Nova cor para o Match */
+    --partner-blue: #0072ff;  /* Nova cor para o que só ela gostou */
     --text: #ffffff;
     --text-muted: #8a8a9e;
 }
@@ -109,7 +111,7 @@ button {
     flex-direction: column;
     border: 1px solid #2d2d3f;
     user-select: none;
-    touch-action: pan-y; /* Liberado toques e cliques sem travar no celular */
+    touch-action: pan-y;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     transition: transform 0.2s ease, opacity 0.2s ease;
 }
@@ -187,7 +189,34 @@ input {
 }
 
 #matches-list {
-    max-height: 45vh;
+    max-height: 55vh;
     overflow-y: auto;
-    width: 85%;
+    width: 100%;
+    max-width: 360px;
+    padding: 5px;
 }
+
+/* Estilos das caixas de resultados customizadas */
+.section-title {
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: left;
+    margin: 15px 0 8px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.title-match { color: var(--match-orange); }
+.title-partner { color: var(--partner-blue); }
+
+.box-item {
+    background: #181824; 
+    padding: 12px 15px; 
+    border-radius: 10px; 
+    margin-bottom: 8px; 
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+.box-match { border-left: 4px solid var(--match-orange); }
+.box-partner { border-left: 4px solid var(--partner-blue); }
