@@ -1,0 +1,956 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+
+body{
+
+    height:100vh;
+    overflow:hidden;
+    background:#000;
+
+    animation:flash 4s infinite;
+
+}
+
+
+
+.galaxy{
+
+    width:100vw;
+    height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    position:relative;
+
+    background:
+    radial-gradient(circle,
+    #65005f,
+    #09000d 50%,
+    #000);
+
+    perspective:1000px;
+
+    overflow:hidden;
+
+}
+
+
+
+
+.nebula{
+
+position:absolute;
+
+width:900px;
+height:900px;
+
+border-radius:50%;
+
+
+background:
+radial-gradient(circle,
+#ff008c66,
+transparent 70%);
+
+
+filter:blur(60px);
+
+
+animation:
+nebula 5s infinite alternate;
+
+}
+
+
+
+@keyframes nebula{
+
+
+from{
+
+transform:scale(.7);
+
+}
+
+
+to{
+
+transform:scale(1.4);
+
+}
+
+
+}
+
+
+
+
+.core{
+
+
+position:absolute;
+
+font-size:170px;
+
+
+color:#ff0077;
+
+
+filter:
+
+drop-shadow(0 0 25px #ff008c)
+drop-shadow(0 0 80px #ff00ff)
+drop-shadow(0 0 120px #ff0066);
+
+
+animation:
+
+pulse 1s infinite;
+
+
+z-index:10;
+
+
+}
+
+
+
+@keyframes pulse{
+
+
+50%{
+
+transform:scale(1.3);
+
+}
+
+
+}
+
+
+
+
+
+.ring{
+
+
+position:absolute;
+
+
+border-radius:50%;
+
+
+border:
+
+2px solid #ff008855;
+
+
+transform-style:preserve-3d;
+
+
+animation:
+
+rotate 10s linear infinite;
+
+
+box-shadow:
+
+0 0 40px #ff008855;
+
+
+}
+
+
+
+
+.ring1{
+
+width:450px;
+height:450px;
+
+}
+
+
+
+.ring2{
+
+width:750px;
+height:750px;
+
+animation-duration:15s;
+
+}
+
+
+
+
+.ring3{
+
+width:1100px;
+height:1100px;
+
+animation-duration:25s;
+
+}
+
+
+
+
+.heart{
+
+
+position:absolute;
+
+
+top:-50px;
+left:50%;
+
+
+font-size:65px;
+
+
+color:#ff2990;
+
+
+filter:
+
+drop-shadow(0 0 25px #ff0066)
+drop-shadow(0 0 70px #ff00cc);
+
+
+
+animation:
+
+float 1.5s infinite alternate;
+
+
+}
+
+
+
+
+
+
+@keyframes rotate{
+
+
+from{
+
+
+transform:
+
+rotateX(65deg)
+rotateZ(0deg);
+
+
+}
+
+
+to{
+
+
+transform:
+
+rotateX(65deg)
+rotateZ(360deg);
+
+
+}
+
+
+}
+
+
+
+
+
+
+
+@keyframes float{
+
+
+to{
+
+
+transform:
+
+translateY(-35px)
+scale(1.15);
+
+
+}
+
+
+}
+
+
+
+
+
+.spark{
+
+
+position:absolute;
+
+
+color:#ff1493;
+
+
+text-shadow:
+
+0 0 15px #ff008c,
+0 0 50px #ff00ff;
+
+
+animation:
+
+moveHeart linear infinite;
+
+
+}
+
+
+
+
+
+@keyframes moveHeart{
+
+
+0%{
+
+
+transform:
+
+translateY(100vh)
+scale(0);
+
+
+opacity:0;
+
+
+}
+
+
+
+40%{
+
+
+opacity:1;
+
+
+}
+
+
+
+100%{
+
+
+transform:
+
+translateY(-120vh)
+rotate(360deg)
+scale(1.5);
+
+
+opacity:0;
+
+
+}
+
+
+}
+
+
+
+
+
+@keyframes flash{
+
+
+50%{
+
+
+filter:
+
+brightness(1.5);
+
+
+}
+
+
+}
+
+
+/* removido o quadrado do ::after */
+.galaxy::after{
+
+content:none;
+
+}
+
+/* ===========================
+   CELULAR / RESPONSIVO
+=========================== */
+
+
+@media (max-width:600px){
+
+
+    body{
+        height:100svh;
+        overflow:hidden;
+    }
+
+
+
+    .galaxy{
+
+        width:100vw;
+        height:100svh;
+
+        perspective:700px;
+
+    }
+
+
+
+    .nebula{
+
+        width:350px;
+        height:350px;
+
+        filter:blur(35px);
+
+    }
+
+
+
+
+    .core{
+
+        font-size:90px;
+
+    }
+
+
+
+
+
+    .ring1{
+
+        width:230px;
+        height:230px;
+
+    }
+
+
+
+
+    .ring2{
+
+        width:380px;
+        height:380px;
+
+    }
+
+
+
+
+    .ring3{
+
+        width:520px;
+        height:520px;
+
+    }
+
+
+
+
+
+    .heart{
+
+        font-size:38px;
+
+        top:-30px;
+
+    }
+
+
+
+
+
+    .love{
+
+        font-size:18px !important;
+
+        letter-spacing:1px;
+
+        margin:15px;
+
+        max-width:90vw;
+
+    }
+
+
+
+
+
+}
+
+/* BOTÃO POEMAS */
+
+
+.poemasBtn{
+
+
+position:absolute;
+
+bottom:25px;
+
+left:50%;
+
+transform:translateX(-50%);
+
+
+padding:15px 45px;
+
+
+border:none;
+
+border-radius:50px;
+
+
+background:
+
+linear-gradient(45deg,#ff0077,#ff00cc);
+
+
+color:white;
+
+
+font-size:20px;
+
+
+font-weight:bold;
+
+
+box-shadow:
+
+0 0 25px #ff008c,
+0 0 60px #ff00ff;
+
+
+cursor:pointer;
+
+
+z-index:50;
+
+
+}
+
+
+
+.poemasBtn:active{
+
+transform:
+translateX(-50%)
+scale(.9);
+
+}
+
+
+
+
+
+
+.poemaBox{
+
+
+position:absolute;
+
+
+inset:0;
+
+
+background:#000000aa;
+
+
+display:none;
+
+
+align-items:center;
+
+justify-content:center;
+
+
+z-index:100;
+
+
+backdrop-filter:blur(8px);
+
+
+}
+
+
+
+
+
+.poema{
+
+
+width:85%;
+
+max-width:450px;
+
+
+padding:35px;
+
+
+border-radius:25px;
+
+
+background:
+
+linear-gradient(
+135deg,
+#240019,
+#050008
+);
+
+
+color:white;
+
+
+text-align:center;
+
+
+box-shadow:
+
+0 0 40px #ff008c;
+
+
+animation:
+
+aparecer .5s;
+
+
+}
+
+
+
+.poema h2{
+
+color:#ff4fa3;
+
+margin-bottom:20px;
+
+}
+
+
+
+.poema p{
+
+line-height:1.8;
+
+font-size:18px;
+
+}
+
+
+
+.fechar{
+
+
+position:absolute;
+
+right:35px;
+
+top:25px;
+
+
+font-size:35px;
+
+color:#ff4fa3;
+
+cursor:pointer;
+
+}
+
+
+
+@keyframes aparecer{
+
+
+from{
+
+transform:scale(.5);
+
+opacity:0;
+
+}
+
+
+to{
+
+transform:scale(1);
+
+opacity:1;
+
+}
+
+
+}
+
+
+
+
+
+@media(max-width:600px){
+
+
+.poemasBtn{
+
+bottom:20px;
+
+font-size:17px;
+
+padding:12px 35px;
+
+}
+
+
+
+.poema{
+
+width:90%;
+
+}
+
+
+}
+
+.arrow{
+
+position:absolute;
+
+top:50%;
+
+transform:translateY(-50%);
+
+
+background:none;
+
+border:none;
+
+
+font-size:50px;
+
+color:#ff4fa3;
+
+
+text-shadow:
+0 0 20px #ff00cc;
+
+
+cursor:pointer;
+
+
+z-index:200;
+
+
+}
+
+
+.left{
+
+left:30px;
+
+}
+
+
+.right{
+
+right:30px;
+
+}
+
+
+
+.poema{
+
+transition:.4s;
+
+}
+
+
+
+
+@media(max-width:600px){
+
+
+.arrow{
+
+font-size:40px;
+
+}
+
+
+.left{
+
+left:10px;
+
+}
+
+
+.right{
+
+right:10px;
+
+}
+
+
+}
+
+/* efeito pagina de livro */
+
+.poema{
+
+width:85%;
+max-width:450px;
+
+padding:35px;
+
+border-radius:25px;
+
+
+background:
+linear-gradient(
+135deg,
+#240019,
+#050008
+);
+
+
+color:white;
+
+text-align:center;
+
+
+box-shadow:
+
+0 0 40px #ff008c;
+
+
+transform-origin:left center;
+
+
+transition:
+transform .6s ease,
+opacity .4s;
+
+
+}
+
+
+
+.poema.saindo{
+
+transform:
+perspective(700px)
+rotateY(-90deg)
+translateX(-80px);
+
+
+opacity:0;
+
+}
+
+
+
+.poema.entrando{
+
+transform:
+perspective(700px)
+rotateY(90deg)
+translateX(80px);
+
+
+opacity:0;
+
+}
+
+
+.poema.mostrar{
+
+transform:
+perspective(700px)
+rotateY(0deg)
+translateX(0);
+
+
+opacity:1;
+
+}
+
+/* efeito livro */
+
+.poema{
+
+transition:
+transform .45s ease,
+opacity .45s ease;
+
+transform-origin:left center;
+
+}
+
+
+
+.poema.saindo{
+
+transform:
+
+perspective(800px)
+rotateY(-90deg)
+translateX(-50px);
+
+opacity:0;
+
+}
+
+
+
+
+.poema.entrando{
+
+transform:
+
+perspective(800px)
+rotateY(90deg)
+translateX(50px);
+
+opacity:0;
+
+}
+
+
+
+
+
+.poema.mostrar{
+
+transform:
+
+perspective(800px)
+rotateY(0deg);
+
+opacity:1;
+
+}
+
