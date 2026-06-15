@@ -4,16 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Match Secreto +18</title>
+    <!-- Vinculando o arquivo CSS externo -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+    <!-- 1. TELA DE CONSENTIMENTO -->
     <div id="screen-consent" class="screen">
-        <h1>Aviso +18 🔥</h1>
-        <p>Este jogo contém posições sexuais e fetiches. Você confirma que tem mais de 18 anos? KKKK</p>
-        <button onclick="changeScreen('screen-consent', 'screen-hype')">Sim, Então dale</button>
+        <h1>Match Secreto 🔥</h1>
+        <p style="margin-bottom: 20px;">Um jogo estilo Tinder para descobrir nossa sintonia entre quatro paredes. Arraste para o lado e descubra onde nossos desejos dão MATCH. Sem julgamentos, apenas prazer.</p>
+        <p style="font-size: 0.85rem; color: #ff2a74;">⚠️ Atenção: Conteúdo altamente picante e exclusivo para maiores de 18 anos.</p>
+        <button onclick="changeScreen('screen-consent', 'screen-hype')">Quero Jogar 😈</button>
     </div>
 
+    <!-- TELA DE HYPE -->
     <div id="screen-hype" class="screen hidden">
         <div class="hype-text">
             Se você acha que a putaria tá boa, imagine e espere o que tem por vir...
@@ -22,16 +26,19 @@
         <button onclick="changeScreen('screen-hype', 'screen-game')">Começar Desafio 😈</button>
     </div>
 
+    <!-- 2. TELA DO JOGO -->
     <div id="screen-game" class="screen hidden">
         <p style="font-size: 0.8rem; margin-bottom: 10px;">Arraste o card ou use os botões abaixo</p>
         <div class="game-container" id="card-container">
-            </div>
+            <!-- Gerado dinamicamente via JS -->
+        </div>
         <div class="action-buttons">
             <button class="btn-action btn-no" onclick="handleSwipe(false)">❌</button>
             <button class="btn-action btn-yes" onclick="handleSwipe(true)">🔥</button>
         </div>
     </div>
 
+    <!-- 3. TELA DE RESULTADO -->
     <div id="screen-result" class="screen hidden">
         <h2>Seu Jogo Acabou! 🎉</h2>
         <p>Copie o código abaixo e mande para ela:</p>
@@ -42,6 +49,7 @@
         <button onclick="checkMatches()">Ver Matches 🌶️</button>
     </div>
 
+    <!-- 4. TELA DOS MATCHES FINAIS -->
     <div id="screen-matches" class="screen hidden">
         <h2>Deu Match! 🌶️❤️</h2>
         <p>Vocês dois topam fazer essas posições:</p>
@@ -49,6 +57,7 @@
         <button onclick="location.reload()" style="margin-top: 15px;">Jogar Novamente</button>
     </div>
 
-    <script src="scrypt.js"></script>
+    <!-- Vinculando o arquivo JavaScript externo -->
+    <script src="script.js"></script>
 </body>
 </html>
