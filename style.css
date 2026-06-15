@@ -3,8 +3,9 @@
     --card-bg: #181824;
     --primary: #ff2a74;
     --secondary: #00f0ff;
-    --match-orange: #ff6a00; /* Nova cor para o Match */
-    --partner-blue: #0072ff;  /* Nova cor para o que só ela gostou */
+    --match-orange: #ff6a00; /* Laranja para o Match */
+    --partner-blue: #0072ff;  /* Azul para ela */
+    --user-pink: #ff2a74;     /* Rosa para você */
     --text: #ffffff;
     --text-muted: #8a8a9e;
 }
@@ -220,3 +221,5 @@ input {
 
 .box-match { border-left: 4px solid var(--match-orange); }
 .box-partner { border-left: 4px solid var(--partner-blue); }
+.title-user { color: var(--user-pink); }
+.box-user { border-left: 4px solid var(--user-pink); }
