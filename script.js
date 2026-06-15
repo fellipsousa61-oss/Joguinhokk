@@ -1,159 +1,123 @@
-const galaxy = document.querySelector(".galaxy");
-const heart = document.querySelector(".core");
-
-// estrelas/corações da galáxia
-for(let i=0; i<180; i++){
-    let star = document.createElement("div");
-    star.innerHTML = Math.random() > 0.5 ? "❤" : "✦";
-    star.className = "star";
-    star.style.left = Math.random() * 100 + "vw";
-    star.style.top = Math.random() * 100 + "vh";
-    star.style.fontSize = Math.random() * 18 + 5 + "px";
-    star.style.animationDuration = Math.random() * 4 + 2 + "s";
-    galaxy.appendChild(star);
-}
-
-// clique no coração central
-heart.addEventListener("click", () => {
-    for(let i=0; i<35; i++){
-        let text = document.createElement("div");
-        let frases = [
-            "EU TE AMO ❤️",
-            "TE VIVO 💖",
-            "TE QUERO ❤️",
-            "MEU AMOR 💕",
-            "VOCÊ É ESPECIAL ✨"
-        ];
-
-        text.innerHTML = frases[Math.floor(Math.random() * frases.length)];
-        text.className = "love";
-        text.style.left = Math.random() * 75 + 12 + "vw";
-        text.style.animationDuration = Math.random() * 5 + 5 + "s";
-        text.style.fontSize = Math.random() * 15 + 20 + "px";
-
-        galaxy.appendChild(text);
-
-        setTimeout(() => {
-            text.remove();
-        }, 10000);
-    }
-});
-
-// estilos extras
-let css = document.createElement("style");
-css.innerHTML = `
-.star{
-    position:absolute;
-    color:#ff4fa3;
-    text-shadow: 0 0 15px #ff008c, 0 0 40px #ff00ff;
-    animation:twinkle infinite alternate;
-}
-@keyframes twinkle{
-    50%{ opacity:.2; transform:scale(1.5); }
-}
-.love{
-    position:absolute;
-    top:-60px;
-    color:#fff;
-    font-weight:bold;
-    letter-spacing:3px;
-    margin:40px;
-    text-align:center;
-    text-shadow: 0 0 15px #ff008c, 0 0 50px #ff00ff;
-    z-index:30;
-    pointer-events:none;
-    animation:fallText linear forwards;
-}
-@keyframes fallText{
-    0%{ transform: translateY(-50px) rotate(-5deg); opacity:0; }
-    20%{ opacity:1; }
-    100%{ transform: translateY(110vh) rotate(5deg); opacity:0; }
-}
-.core{ cursor:pointer; }
-`;
-document.head.appendChild(css);
-
-// ==========================================
-// CONTROLE DA CAIXA DE POEMAS (CORRIGIDO)
-// ==========================================
-const btnPoemas = document.querySelector(".poemasBtn");
-const caixa = document.querySelector(".poemaBox");
-const fechar = document.querySelector(".fechar");
-const texto = document.querySelector(".textoPoema");
-const paginaPoema = document.querySelector(".poema");
-
-const poemas = [
-    `No meio do universo eu encontrei uma estrela ❤️<br><br>No meio de milhões de caminhos encontrei você.<br><br>Meu coração sempre gira em volta do seu.`,
-    `Se eu pudesse guardar uma coisa no infinito,<br><br>eu guardaria o momento em que encontrei você ✨<br><br>Porque meu lugar favorito é perto de você.`,
-    `O céu tem milhões de estrelas,<br><br>mas nenhuma brilha tanto quanto o sorriso que eu amo ❤️`,
-    `Meu amor é como uma galáxia,<br><br>não tem fim,<br>só aumenta a cada dia 💖`
+// BANCO DE DADOS DAS POSIÇÕES E DESCRIÇÕES PICANTES (ATUALIZADO!)
+const posicoes = [
+    { id: 1, nome: "Papai e Mamãe Intenso", emoji: "👩‍❤️‍👨", desc: "Corpo a corpo total. Excelente para penetração profunda, contato visual fixo, gemidos no ouvido e beijos molhados enquanto os quadris se chocam." },
+    { id: 2, nome: "De Lado Preguiçosa", emoji: "🛌", desc: "Encaixe perfeito por trás em formato de conchinha. Uma delícia para penetrações lentas, mãos livres para acariciar o corpo dela inteirinho e sussurrar safadezas." },
+    { id: 3, nome: "Cowgirl Dominante", emoji: "🤠", desc: "Ela senta por cima e assume o controle. Ela dita a velocidade, a profundidade e o ritmo da cavalgada, deixando ele louco olhando tudo de baixo." },
+    { id: 4, nome: "De Quatro Selvagem", emoji: "🐾", desc: "Uma das posições mais intensas e carnais. Visão privilegiada para ele, profundidade máxima e espaço perfeito para uns tapinhas bem dados." },
+    { id: 5, nome: "A Cadeirinha", emoji: "🪑", desc: "Ele senta e ela vem por cima virada de frente. Encaixe super íntimo para ficarem se abraçando, se esfregando e sentindo o calor direto do corpo um do outro." },
+    { id: 6, nome: "O Banquete Real", emoji: "👅💦", desc: "Momento totalmente dedicado ao sexo oral nela. Ela deita confortavelmente enquanto ele se joga entre as pernas dela para dar atenção total, sem pressa, ao clitóris." },
+    { id: 7, nome: "A Garganta Profunda", emoji: "🤤", desc: "Momento dedicado ao sexo oral focado nele, com intensidade, entrega, contato visual provocante e uso das mãos para caprichar." },
+    { id: 8, nome: "69 Clássico", emoji: "🔄", desc: "Prazer duplo e simultâneo. Os dois se deliciando com sexo oral ao mesmo tempo, perdendo o fôlego e o controle." },
+    { id: 9, nome: "Altar do Prazer", emoji: "🧘‍♀️", desc: "Ela deita na beirada da cama com as pernas apoiadas nos ombros dele. Ele fica em pé ou de joelhos, garantindo um ângulo de penetração absurdo e muito profundo." },
+    { id: 10, nome: "Gato de Botas", emoji: "👢", desc: "Ela de joelhos e ele vem por trás, mas ela inclina o tronco quase colando o peito no colchão. O ângulo muda totalmente e o atrito fica super gostoso." },
+    { id: 11, nome: "O Trancado", emoji: "🥨", desc: "Os dois sentados na cama, ela envolve as pernas na cintura dele. Os corpos ficam tão colados que dá para sentir o coração batendo e movimentar só no deslize." },
+    { id: 12, nome: "Contra a Parede", emoji: "🧱", desc: "Pura adrenalina. Ele ergue ela contra a parede, e ela prende as pernas na cintura dele. Pegada firme, rápida e cheia de tesão selvagem." },
+    { id: 13, nome: "Anjo Caído", emoji: "👼", desc: "Uma variação do papai e mamãe onde ela joga as duas pernas para o mesmo lado, cruzando o corpo. Apertado, viciante e com muito estímulo." },
+    { id: 14, nome: "Espelho Meu", emoji: "🪞", desc: "Transar de frente para um espelho (ou imaginando um). O estímulo visual de ver a penetração acontecer ao vivo deixa o tesão lá no teto." },
+    { id: 15, nome: "Cowgirl Invertida", emoji: "🔄🤠", desc: "Ela senta por cima, mas de costas para ele. Ele ganha a visão perfeita da bunda dela rebolando enquanto ela controla o prazer." },
+    { id: 16, nome: "O Arqueado", emoji: "🏹", desc: "Ela deita de costas, mas coloca um travesseiro alto debaixo do quadril para empinar bem a pelve. Facilita o encaixe e estimula pontos estratégicos dela." }
 ];
 
-let atual = 0;
+let currentCardIndex = 0;
+let likedPositions = [];
+let startX = 0; 
 
-// Abrir e fechar a caixa
-btnPoemas.onclick = () => {
-    caixa.style.display = "flex";
-    mostrarPoema(); // Garante que o primeiro poema apareça ao abrir
+// Gerencia a troca de telas
+function changeScreen(hideId, showId) {
+    document.getElementById(hideId).classList.add('hidden');
+    document.getElementById(showId).classList.remove('hidden');
+    if(showId === 'screen-game') { renderCard(); }
 }
 
-fechar.onclick = () => {
-    caixa.style.display = "none";
-}
+// Cria o card visual na tela
+function renderCard() {
+    const container = document.getElementById('card-container');
+    container.innerHTML = '';
 
-// Função única e limpa para transição dos poemas
-function mostrarPoema(direcao = "direita") {
-    if (!paginaPoema) return;
-
-    // Começa a animação de virar a página
-    if (direcao === "direita") {
-        paginaPoema.style.transform = "perspective(800px) rotateY(-90deg)";
-    } else {
-        paginaPoema.style.transform = "perspective(800px) rotateY(90deg)";
+    if (currentCardIndex >= posicoes.length) {
+        finishGame();
+        return;
     }
-    paginaPoema.style.opacity = "0";
 
-    // Troca o texto no meio da animação e faz voltar
-    setTimeout(() => {
-        if (texto) {
-            texto.innerHTML = poemas[atual];
+    const item = posicoes[currentCardIndex];
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+        <div class="card-image-placeholder">${item.emoji}</div>
+        <h3>${item.nome}</h3>
+        <p>${item.desc}</p>
+    `;
+
+    // Sistema de arrastar o card (Touch Mobile)
+    card.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+    });
+
+    card.addEventListener('touchmove', (e) => {
+        let moveX = e.touches[0].clientX - startX;
+        if (Math.abs(moveX) < 150) {
+            card.style.transform = `translateX(${moveX}px) rotate(${moveX / 10}deg)`;
         }
-        paginaPoema.style.transform = "perspective(800px) rotateY(0deg)";
-        paginaPoema.style.opacity = "1";
-    }, 350);
+    });
+
+    card.addEventListener('touchend', (e) => {
+        let endX = e.changedTouches[0].clientX;
+        let diffX = endX - startX;
+
+        if (diffX > 100) {
+            card.style.transform = 'translateX(300px) rotate(20deg)';
+            card.style.opacity = '0';
+            setTimeout(() => handleSwipe(true), 200);
+        } else if (diffX < -100) {
+            card.style.transform = 'translateX(-300px) rotate(-20deg)';
+            card.style.opacity = '0';
+            setTimeout(() => handleSwipe(false), 200);
+        } else {
+            card.style.transform = 'translateX(0px) rotate(0deg)';
+        }
+    });
+
+    container.appendChild(card);
 }
 
-// Botões de navegar
-document.querySelector(".right").onclick = () => {
-    atual++;
-    if (atual >= poemas.length) {
-        atual = 0;
+// Processa a escolha (Curtiu ou Recusou)
+function handleSwipe(liked) {
+    if (liked) { likedPositions.push(posicoes[currentCardIndex].id); }
+    currentCardIndex++;
+    renderCard();
+}
+
+// Finaliza e gera o código criptografado
+function finishGame() {
+    changeScreen('screen-game', 'screen-result');
+    const codeString = likedPositions.join(',');
+    const encoded = btoa(codeString);
+    document.getElementById('my-code').innerText = encoded;
+}
+
+// Compara o código de vocês dois para exibir os matches
+function checkMatches() {
+    const partnerInput = document.getElementById('partner-code').value.trim();
+    if(!partnerInput) return alert("Cole o código gerado pelo celular dela!");
+
+    try {
+        const decodedPartner = atob(partnerInput).split(',').map(Number);
+        const matches = posicoes.filter(pos => likedPositions.includes(pos.id) && decodedPartner.includes(pos.id));
+        const listContainer = document.getElementById('matches-list');
+        listContainer.innerHTML = '';
+
+        if(matches.length === 0) {
+            listContainer.innerHTML = '<p style="color: #ff4757; text-align:center; width:100%;">Nenhum match direto. Que tal conversarem sobre o que cada um gosta? 😉</p>';
+        } else {
+            matches.forEach(pos => {
+                listContainer.innerHTML += `
+                    <div style="background:#181824; padding:15px; border-radius:10px; margin-bottom:10px; border-left: 4px solid var(--secondary); text-align:left;">
+                        <strong style="font-size:1.1rem; color:var(--primary);">${pos.emoji} ${pos.nome}</strong>
+                    </div>`;
+                });
+        }
+        changeScreen('screen-result', 'screen-matches');
+    } catch (e) {
+        alert("Código inválido! Peça para ela copiar novamente.");
     }
-    mostrarPoema("direita");
-};
-
-document.querySelector(".left").onclick = () => {
-    atual--;
-    if (atual < 0) {
-        atual = poemas.length - 1;
-    }
-    mostrarPoema("esquerda");
-};
-
-// Arrastar no celular (Swipe)
-let inicioX = 0;
-
-paginaPoema.addEventListener("touchstart", (e) => {
-    inicioX = e.touches[0].clientX;
-});
-
-paginaPoema.addEventListener("touchend", (e) => {
-    let fimX = e.changedTouches[0].clientX;
-
-    if (inicioX - fimX > 50) {
-        document.querySelector(".right").click();
-    }
-    if (fimX - inicioX > 50) {
-        document.querySelector(".left").click();
-    }
-});
+}
