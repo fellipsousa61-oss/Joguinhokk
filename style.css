@@ -109,7 +109,7 @@ button {
     flex-direction: column;
     border: 1px solid #2d2d3f;
     user-select: none;
-    touch-action: none; 
+    touch-action: pan-y; /* Liberado toques e cliques sem travar no celular */
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     transition: transform 0.2s ease, opacity 0.2s ease;
 }
