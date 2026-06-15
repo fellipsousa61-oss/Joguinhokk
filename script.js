@@ -90,7 +90,7 @@ function finishGame() {
     document.getElementById('my-code').innerText = encoded;
 }
 
-// FUNÇÃO DE CHECAGEM COMPLETAMENTE ATUALIZADA
+// COM PARA OS DOIS CÓDIGOS E MOSTRA: MATCHES, SÓ ELA, SÓ VOCÊ
 function checkMatches() {
     const partnerInput = document.getElementById('partner-code').value.trim();
     if(!partnerInput) return alert("Cole o código gerado pelo celular dela!");
@@ -99,19 +99,22 @@ function checkMatches() {
         // Descriptografa as curtidas dela
         const decodedPartner = atob(partnerInput).split(',').map(Number);
         
-        // 1. Achar os MATCHES (O que os dois curtiram)
+        // 1. MATCHES (Os dois deram SIM)
         const matches = posicoes.filter(pos => likedPositions.includes(pos.id) && decodedPartner.includes(pos.id));
         
-        // 2. Achar as curtidas DELA que você não deu sim (Apenas ela gostou)
+        // 2. SÓ ELA GOSTOU (Ela deu SIM, você deu NÃO)
         const onlyPartnerLikes = posicoes.filter(pos => decodedPartner.includes(pos.id) && !likedPositions.includes(pos.id));
+
+        // 3. SÓ VOCÊ GOSTOU (Você deu SIM, ela deu NÃO)
+        const onlyUserLikes = posicoes.filter(pos => likedPositions.includes(pos.id) && !decodedPartner.includes(pos.id));
 
         const listContainer = document.getElementById('matches-list');
         listContainer.innerHTML = '';
 
         // BLOCO 1: EXIBIR MATCHES (LARANJA)
-        listContainer.innerHTML += `<div class="section-title title-match">🔥 Deu Match (${matches.length})</div>`;
+        listContainer.innerHTML += `<div class="section-title title-match">🍊 Deu Match (${matches.length})</div>`;
         if(matches.length === 0) {
-            listContainer.innerHTML += '<p style="color: var(--text-muted); font-size: 0.9rem; text-align:left; padding-left:5px;">Nenhum match direto ainda... 😢</p>';
+            listContainer.innerHTML += '<p style="color: var(--text-muted); font-size: 0.9rem; text-align:left; padding-left:5px; margin-bottom:15px;">Nenhum match direto ainda... 😢</p>';
         } else {
             matches.forEach(pos => {
                 listContainer.innerHTML += `
@@ -122,13 +125,26 @@ function checkMatches() {
         }
 
         // BLOCO 2: EXIBIR O QUE SÓ ELA GOSTOU (AZUL)
-        listContainer.innerHTML += `<div class="section-title title-partner">👀 Ela também curtiu (${onlyPartnerLikes.length})</div>`;
+        listContainer.innerHTML += `<div class="section-title title-partner">🔵 Ela também curtiu (${onlyPartnerLikes.length})</div>`;
         if(onlyPartnerLikes.length === 0) {
-            listContainer.innerHTML += '<p style="color: var(--text-muted); font-size: 0.9rem; text-align:left; padding-left:5px;">Ela não escolheu nada fora dos seus matches.</p>';
+            listContainer.innerHTML += '<p style="color: var(--text-muted); font-size: 0.9rem; text-align:left; padding-left:5px; margin-bottom:15px;">Ela não escolheu nada fora dos matches.</p>';
         } else {
             onlyPartnerLikes.forEach(pos => {
                 listContainer.innerHTML += `
                     <div class="box-item box-partner">
+                        <strong>${pos.emoji} ${pos.nome}</strong>
+                    </div>`;
+            });
+        }
+
+        // BLOCO 3: EXIBIR O QUE SÓ VOCÊ GOSTOU (ROSA)
+        listContainer.innerHTML += `<div class="section-title title-user">💖 Você também curtiu (${onlyUserLikes.length})</div>`;
+        if(onlyUserLikes.length === 0) {
+            listContainer.innerHTML += '<p style="color: var(--text-muted); font-size: 0.9rem; text-align:left; padding-left:5px; margin-bottom:15px;">Você não escolheu nada fora dos matches.</p>';
+        } else {
+            onlyUserLikes.forEach(pos => {
+                listContainer.innerHTML += `
+                    <div class="box-item box-user">
                         <strong>${pos.emoji} ${pos.nome}</strong>
                     </div>`;
             });
