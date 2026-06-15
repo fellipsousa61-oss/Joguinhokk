@@ -1,62 +1,54 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<title>Galáxia de Corações</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Match Secreto +18</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
-
-<button class="poemasBtn">Poemas ❤️</button>
-
-
-<div class="poemaBox">
-
-    <button class="arrow left">❮</button>
-
-
-    <div class="poema">
-
-        <span class="fechar">×</span>
-
-        <h2>Para você ❤️</h2>
-
-        <p class="textoPoema"></p>
-
-    </div>
-
-
-    <button class="arrow right">❯</button>
-
-
-</div>
-
 <body>
 
-<div class="galaxy">
-
-    <div class="nebula"></div>
-
-    <div class="core">
-        ❤
+    <div id="screen-consent" class="screen">
+        <h1>Aviso +18 🔥</h1>
+        <p>Este jogo contém posições sexuais e fetiches. Você confirma que tem mais de 18 anos? KKKK</p>
+        <button onclick="changeScreen('screen-consent', 'screen-hype')">Sim, Então dale</button>
     </div>
 
-    <div class="ring ring1">
-        <div class="heart">❤</div>
+    <div id="screen-hype" class="screen hidden">
+        <div class="hype-text">
+            Se você acha que a putaria tá boa, imagine e espere o que tem por vir...
+            <span>🔥</span>
+        </div>
+        <button onclick="changeScreen('screen-hype', 'screen-game')">Começar Desafio 😈</button>
     </div>
 
-    <div class="ring ring2">
-        <div class="heart">❤</div>
+    <div id="screen-game" class="screen hidden">
+        <p style="font-size: 0.8rem; margin-bottom: 10px;">Arraste o card ou use os botões abaixo</p>
+        <div class="game-container" id="card-container">
+            </div>
+        <div class="action-buttons">
+            <button class="btn-action btn-no" onclick="handleSwipe(false)">❌</button>
+            <button class="btn-action btn-yes" onclick="handleSwipe(true)">🔥</button>
+        </div>
     </div>
 
-    <div class="ring ring3">
-        <div class="heart">❤</div>
+    <div id="screen-result" class="screen hidden">
+        <h2>Seu Jogo Acabou! 🎉</h2>
+        <p>Copie o código abaixo e mande para ela:</p>
+        <div class="code-box" id="my-code">---</div>
+        
+        <p style="margin-top: 10px;">Ou cole o código dela aqui:</p>
+        <input type="text" id="partner-code" placeholder="Cole o código aqui...">
+        <button onclick="checkMatches()">Ver Matches 🌶️</button>
     </div>
 
-</div>
+    <div id="screen-matches" class="screen hidden">
+        <h2>Deu Match! 🌶️❤️</h2>
+        <p>Vocês dois topam fazer essas posições:</p>
+        <div id="matches-list"></div>
+        <button onclick="location.reload()" style="margin-top: 15px;">Jogar Novamente</button>
+    </div>
 
-
-<script src="script.js"></script>
-
+    <script src="scrypt.js"></script>
 </body>
 </html>
